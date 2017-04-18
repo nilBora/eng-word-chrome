@@ -1,8 +1,3 @@
-var div=document.createElement("div"); document.body.appendChild(div); div.innerText="test123";
-//var sel =  window.getSelection();
-//var range = sel.getRangeAt(0);
-
-//console.log(APP.translateWord);
 
 
 var positions =  getSelectionTopLeft();
@@ -56,4 +51,4 @@ function getSelectionTopLeft() {
         }
     }
     return { x: x, y: y };
-}            
+}

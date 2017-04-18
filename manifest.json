@@ -10,7 +10,9 @@
     {
       "matches": [ "*://*/*" ],
       "js": [ "/static/js/content.js" ],
-      "css": ["static/css/style.css"]
+      "css": ["static/css/style.css"],
+      "run_at": "document_end",
+      "all_frames": true
     }
   ],
   "background": {
