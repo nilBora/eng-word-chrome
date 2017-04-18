@@ -7,8 +7,9 @@ var div=document.createElement("div"); document.body.appendChild(div); div.inner
 
 var positions =  getSelectionTopLeft();
 var tooltipDiv = document.createElement("div");
-var style = 'position:absolute;z-index:999;left:'+positions.x+'px;bottom:'+positions.y+'px; background-color:#dedede;padding:5px;border:1px solid #fff;width:250px;';
-tooltipDiv.setAttribute('style', style)
+var style = 'left:'+positions.x+'px;bottom:'+positions.y+'px;';
+tooltipDiv.setAttribute('style', style);
+tooltipDiv.setAttribute('class', 'tooltip');
 document.body.appendChild(tooltipDiv);
 tooltipDiv.innerText = translateWord;
 

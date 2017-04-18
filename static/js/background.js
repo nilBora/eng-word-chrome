@@ -37,7 +37,13 @@ var APP = {
     doSendTranslateAjax: function(string, tab) {
         var xhr = new XMLHttpRequest();
         var params = "word="+string;
-
+        var translateWord = 'Test';
+	chrome.tabs.executeScript(tab.id, {
+                                code: 'var translateWord = "'+translateWord+'";'
+                        }, function() {
+                                chrome.tabs.executeScript(tab.id, {file: '/static/js/tooltip.js'});
+                        });
+	return true;
         jQuery.post(APP.remoteURL, {'word': string}, function(data) {
             var translateData = JSON.parse(data);
             var translateWord = translateData['content']['translate'];
