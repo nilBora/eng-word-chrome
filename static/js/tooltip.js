@@ -44,11 +44,16 @@ var markSelection = (function() {
             // Lazily create element to be placed next to the selection
             if (!selectionEl) {
                 selectionEl = document.createElement("div");
-                selectionEl.style.border = "solid darkblue 1px";
-                selectionEl.style.backgroundColor = "lightgoldenrodyellow";
-                selectionEl.innerHTML = "&lt;- "+translateWord;
-                selectionEl.style.position = "absolute";
+                var selectionSpan = document.createElement("span");
 
+                selectionSpan.setAttribute('class', 'tooltiptext');
+                ///selectionEl.style.border = "solid darkblue 1px";
+                //selectionEl.style.backgroundColor = "lightgoldenrodyellow";
+                selectionSpan.innerHTML = "&lt;- "+translateWord;
+                selectionEl.style.position = "absolute";
+                selectionEl.setAttribute('class', 'tooltip');
+
+                selectionEl.appendChild(selectionSpan);
                 document.body.appendChild(selectionEl);
             }
 

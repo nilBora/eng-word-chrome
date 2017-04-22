@@ -50,8 +50,6 @@ var APP = {
 			//chrome.tabs.executeScript( null,  {file: "/static/js/tooltip.js"});
             ///console.log(translateWord);
         });
-
-
     },
 	getSelectedText: function(){
 		return (!!document.getSelection) ? document.getSelection() :
