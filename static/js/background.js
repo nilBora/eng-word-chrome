@@ -34,21 +34,12 @@ var APP = {
 		
     },
 
-    doSendTranslateAjax: function(string, tab) {
-        jQuery.post(APP.remoteURL, {'word': string}, function(data) {
-            var translateData = JSON.parse(data);
-            var translateWord = translateData['content']['translate'];
-			APP.translateWord = translateWord;
-			
-			chrome.tabs.executeScript(tab.id, {
-				code: 'var translateWord = "'+translateWord+'";'
-			}, function() {
-				chrome.tabs.executeScript(tab.id, {file: '/static/js/tooltip.js'});
-			});
-			//chrome.tabs.executeScript(null, {file: "/static/js/tooltip.js"});
-			
-			//chrome.tabs.executeScript( null,  {file: "/static/js/tooltip.js"});
-            ///console.log(translateWord);
+    doSendTranslateAjax: function(needTranslate, tab) {
+        //console.log(needTranslate);
+        chrome.tabs.executeScript(tab.id, {
+            code: 'var translateWord = "'+needTranslate+'";'
+        }, function() {
+            chrome.tabs.executeScript(tab.id, {file: '/static/js/tooltip.js'});
         });
     },
 	getSelectedText: function(){
@@ -60,4 +51,21 @@ var APP = {
 APP.init();
 
 
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+       // var SR =
 
+        jQuery.post(APP.remoteURL, {'word': request.needTranslate}, function(data) {
+
+            var translateData = JSON.parse(data);
+            var translateWord = translateData['content']['translate'];
+            if (translateWord) {
+                sendResponse({'translateWord': '222'});
+            }
+
+        });
+
+        //console.log(sender.tab ?
+        //"from a content script:" + sender.tab.url :
+        //    "from the extension");
+    });

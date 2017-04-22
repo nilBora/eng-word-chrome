@@ -1,3 +1,7 @@
+
+
+
+
 var markSelection = (function() {
     var markerTextChar = "\ufeff";
     var markerTextCharEntity = "&#xfeff;";
@@ -49,11 +53,18 @@ var markSelection = (function() {
                 selectionSpan.setAttribute('class', 'tooltiptext');
                 ///selectionEl.style.border = "solid darkblue 1px";
                 //selectionEl.style.backgroundColor = "lightgoldenrodyellow";
-                selectionSpan.innerHTML = "&lt;- "+translateWord;
+               // selectionSpan.innerHTML = "&lt;- ";
+
                 selectionEl.style.position = "absolute";
                 selectionEl.setAttribute('class', 'tooltip');
 
+                var loader = document.createElement('div');
+                loader.setAttribute('class', 'loader');
+                selectionSpan.appendChild(loader);
+
+
                 selectionEl.appendChild(selectionSpan);
+
                 document.body.appendChild(selectionEl);
             }
 
@@ -71,13 +82,42 @@ var markSelection = (function() {
 
             markerEl.parentNode.removeChild(markerEl);
         }
+
+        sendServerAjax(translateWord, selectionSpan);
+
     };
 })(translateWord);
 
 
+
+
 var positions =  getSelectionTopLeft();
+//console.log(translateWord);
 markSelection(translateWord);
-console.log(getSelectionDimensions());
+//console.log(getSelectionDimensions());
+
+
+function sendServerAjax(needTranslate, object)
+{
+    jQuery.post("http://eng.word.local.com/get/translate/", {'word': needTranslate}, function(data) {
+
+        var translateData = JSON.parse(data);
+        var translateWord = translateData['content']['translate'];
+        if (translateWord) {
+            object.innerHTML = translateWord;
+        }
+
+    });
+
+
+    chrome.runtime.sendMessage({needTranslate: needTranslate}, function(response) {
+        console.log(response);
+       // object.innerHTML = response.translateWord;
+
+    });
+
+}
+
 
 function getSelectionDimensions() {
     var sel = document.selection, range;
