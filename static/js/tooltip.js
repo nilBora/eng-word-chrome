@@ -99,6 +99,7 @@ markSelection(translateWord);
 
 function sendServerAjax(needTranslate, object)
 {
+
     jQuery.post("http://eng.word.local.com/get/translate/", {'word': needTranslate}, function(data) {
 
         var translateData = JSON.parse(data);
@@ -110,6 +111,7 @@ function sendServerAjax(needTranslate, object)
     });
 
 
+
     chrome.runtime.sendMessage({needTranslate: needTranslate}, function(response) {
         console.log(response);
        // object.innerHTML = response.translateWord;
@@ -117,6 +119,16 @@ function sendServerAjax(needTranslate, object)
     });
 
 }
+//
+//var port = chrome.runtime.connect({name: "knockknock"});
+//port.postMessage({joke: "Knock knock"});
+//port.onMessage.addListener(function(msg) {
+//    if (msg.question == "Who's there?")
+//        port.postMessage({answer: "Madame"});
+//    else if (msg.question == "Madame who?")
+//        port.postMessage({answer: "Madame... Bovary"});
+//});
+
 
 
 function getSelectionDimensions() {
