@@ -82,8 +82,8 @@ var markSelection = (function() {
 
             markerEl.parentNode.removeChild(markerEl);
         }
-
-        sendServerAjax(translateWord, selectionSpan);
+	selectionSpan.innerHTML = translateWord
+       // sendServerAjax(translateWord, selectionSpan);
 
     };
 })(translateWord);

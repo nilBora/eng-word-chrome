@@ -34,12 +34,17 @@ var APP = {
 		
     },
 
-    doSendTranslateAjax: function(needTranslate, tab) {
+ doSendTranslateAjax: function(needTranslate, tab) {
         //console.log(needTranslate);
-        chrome.tabs.executeScript(tab.id, {
-            code: 'var translateWord = "'+needTranslate+'";'
-        }, function() {
-            chrome.tabs.executeScript(tab.id, {file: '/static/js/tooltip.js'});
+    jQuery.post('http://eng.nil.dev.clients.in.ua/get/translate/', {'word': needTranslate}, function(data) {
+
+            var translateData = JSON.parse(data);
+            var translateWord = translateData['content']['translate'];
+            chrome.tabs.executeScript(tab.id, {
+                code: 'var translateWord = "'+translateWord+'";'
+            }, function() {
+                chrome.tabs.executeScript(tab.id, {file: '/static/js/tooltip.js'});
+            });
         });
     },
 	getSelectedText: function(){
