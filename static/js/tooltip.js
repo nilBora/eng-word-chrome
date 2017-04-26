@@ -100,6 +100,11 @@ markSelection(translateWord);
 function sendServerAjax(needTranslate, object)
 {
 
+	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+	  chrome.tabs.sendMessage(tabs[0].id, {greeting: "hello"}, function(response) {
+	    console.log(response.farewell);
+	  });
+	});
     jQuery.post("http://eng.word.local.com/get/translate/", {'word': needTranslate}, function(data) {
 
         var translateData = JSON.parse(data);
