@@ -1,0 +1,31 @@
+{
+   "background": {
+      "page": "background.html"
+   },
+   "browser_action": {
+      "default_icon": "icons/ico19.png",
+      "default_popup": "popup.html"
+   },
+   "content_scripts": [ {
+      "all_frames": true,
+      "css": [  ],
+      "js": [ "jquery.js", "content.js" ],
+      "matches": [ "*://*/*" ],
+      "run_at": "document_start"
+   } ],
+   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+   "default_locale": "en",
+   "description": "Translator",
+   "icons": {
+      "128": "icons/ico128.png",
+      "16": "icons/ico16.png",
+      "19": "icons/ico19.png",
+      "32": "icons/ico32.png",
+      "48": "icons/ico48.png"
+   },
+   "manifest_version": 2,
+   "name": "Translator",
+   "options_page": "options.html",
+   "permissions": [ "activeTab", "alarms", "browsingData", "chrome://favicon/", "clipboardWrite", "contextMenus", "cookies", "declarativeContent", "fontSettings", "gcm", "identity", "idle", "management", "notifications", "pageCapture", "power", "proxy", "sessions", "storage", "system.cpu", "system.display", "system.memory", "system.storage", "tabCapture", "tabs", "tts", "unlimitedStorage", "webRequest", "webRequestBlocking", "*://*/*" ],
+   "version": "1.0"
+}

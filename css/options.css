@@ -1,0 +1,35 @@
+body#options{
+	padding:40px;
+	text-align:center;
+	background:#333;
+}
+body#options #main{
+	display:inline-block !important;
+	text-align:left;
+	border-radius:3px;
+}
+body#options .alert{
+	margin:5px 0 0 0;
+}
+
+.notification{
+	padding:40px;
+	text-align:center;
+	background:#333;
+}
+.options_url{
+	color: black;
+	text-decoration: underline;
+}
+.alert-thankyou{
+	text-align: left;
+	width: 400px;
+}
+.blt{
+	font-weight:bold;
+}
+.img-thankyou{
+	text-align: center;
+	width: 400px;
+	margin: 12px 0px 0px;
+}

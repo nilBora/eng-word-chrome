@@ -1,0 +1,47 @@
+{
+   "add": {
+      "message": "Добавить"
+   },
+   "close": {
+      "message": "Закрыть"
+   },
+   "description": {
+      "message": "Перевод выделеного текста"
+   },
+   "detectLanguage": {
+      "message": "Определить язык"
+   },
+   "fromLang": {
+      "message": "с"
+   },
+   "name": {
+      "message": "Перевести"
+   },
+   "noAutomatic": {
+      "message": "Выделение фрагмента текста не работает в галереи расширений"
+   },
+   "noSaveNeeded": {
+      "message": "Настройки сохраняются автоматически"
+   },
+   "optionsSelection": {
+      "message": "Настройки"
+   },
+   "remove": {
+      "message": "Удалить"
+   },
+   "save": {
+      "message": "Сохранить"
+   },
+   "settings": {
+      "message": "Настройки"
+   },
+   "sourceText": {
+      "message": "Оригинальный текст"
+   },
+   "toLang": {
+      "message": "на"
+   },
+   "translatedText": {
+      "message": "Переведённый текст"
+   }
+}

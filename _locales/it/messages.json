@@ -1,0 +1,47 @@
+{
+   "add": {
+      "message": "Aggiungi"
+   },
+   "close": {
+      "message": "Chiudi"
+   },
+   "description": {
+      "message": "Traduce il testo selezionato nella pagina Web"
+   },
+   "detectLanguage": {
+      "message": "Rileva lingua"
+   },
+   "fromLang": {
+      "message": "da"
+   },
+   "name": {
+      "message": "Translate selection"
+   },
+   "noAutomatic": {
+      "message": "La selezione del testo non funziona nella extensions gallery"
+   },
+   "noSaveNeeded": {
+      "message": "Le opzioni sono salvate automaticamente"
+   },
+   "optionsSelection": {
+      "message": "Opzioni"
+   },
+   "remove": {
+      "message": "Rimuovi"
+   },
+   "save": {
+      "message": "Salva"
+   },
+   "settings": {
+      "message": "Impostazioni"
+   },
+   "sourceText": {
+      "message": "Testo da tradurre"
+   },
+   "toLang": {
+      "message": "in"
+   },
+   "translatedText": {
+      "message": "Testo tradotto"
+   }
+}
