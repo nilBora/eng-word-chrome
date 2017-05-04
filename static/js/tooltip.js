@@ -1,7 +1,4 @@
 
-
-
-
 var markSelection = (function() {
     var markerTextChar = "\ufeff";
     var markerTextCharEntity = "&#xfeff;";
@@ -51,10 +48,6 @@ var markSelection = (function() {
                 var selectionSpan = document.createElement("span");
 
                 selectionSpan.setAttribute('class', 'tooltiptext');
-                ///selectionEl.style.border = "solid darkblue 1px";
-                //selectionEl.style.backgroundColor = "lightgoldenrodyellow";
-               // selectionSpan.innerHTML = "&lt;- ";
-
                 selectionEl.style.position = "absolute";
                 selectionEl.setAttribute('class', 'tooltip');
 
@@ -71,31 +64,64 @@ var markSelection = (function() {
         var obj = markerEl;
         var left = 0, top = 0;
         do {
+            console.log(obj);
             left += obj.offsetLeft;
             top += obj.offsetTop;
         } while (obj = obj.offsetParent);
-            var withHeight = getSelectionDimensions();
-            top = top - withHeight.height;
-            left = left - withHeight.width;
+           // var withHeight = getSelectionDimensions();
+          //  top = top - withHeight.height;
+           // left = left - withHeight.width;
             selectionEl.style.left = left + "px";
             selectionEl.style.top = top + "px";
 
             markerEl.parentNode.removeChild(markerEl);
         }
-	selectionSpan.innerHTML = translateWord
-       // sendServerAjax(translateWord, selectionSpan);
+	    selectionSpan.innerHTML = translateWord
 
     };
 })(translateWord);
 
 
-
-
-var positions =  getSelectionTopLeft();
-//console.log(translateWord);
 markSelection(translateWord);
-//console.log(getSelectionDimensions());
+createTooltip(translateWord);
 
+function createTooltip(translateWord) {
+
+    var cal1 = document.createElement("div");
+    cal1.setAttribute('id', 'cal1');
+    cal1.innerHTML = '&nbsp;';
+    document.body.appendChild(cal1);
+
+    var cal2 = document.createElement("div");
+    cal2.setAttribute('id', 'cal2');
+    cal2.innerHTML = '&nbsp;';
+    document.body.appendChild(cal2);
+
+    var selectionEl = document.createElement("div");
+    selectionEl.setAttribute('id', 'tooltip');
+    selectionEl.innerHTML = translateWord;
+    document.body.appendChild(selectionEl);
+
+    var ele = selectionEl;//document.getElementById('tooltip');
+    var sel = window.getSelection();
+    var rel1 = document.createRange();
+    rel1.selectNode(cal1);
+    var rel2 = document.createRange();
+    rel2.selectNode(cal2);
+    if (!sel.isCollapsed) {
+
+        var r = sel.getRangeAt(0).getBoundingClientRect();
+        console.log(r);
+        var rb1 = rel1.getBoundingClientRect();
+        var rb2 = rel2.getBoundingClientRect();
+        ele.style.top = (r.bottom - rb2.top) * 100 / (rb1.top - rb2.top) + 'px'; //this will place ele below the selection
+        ele.style.left = (r.left - rb2.left) * 100 / (rb1.left - rb2.left) + 'px'; //this will align the right edges together
+
+        //code to set content
+
+        ele.style.display = 'block';
+    }
+}
 
 function sendServerAjax(needTranslate, object)
 {
@@ -115,104 +141,14 @@ function sendServerAjax(needTranslate, object)
 
     });
 
-
-
     chrome.runtime.sendMessage({needTranslate: needTranslate}, function(response) {
         console.log(response);
        // object.innerHTML = response.translateWord;
 
     });
-
-}
-//
-//var port = chrome.runtime.connect({name: "knockknock"});
-//port.postMessage({joke: "Knock knock"});
-//port.onMessage.addListener(function(msg) {
-//    if (msg.question == "Who's there?")
-//        port.postMessage({answer: "Madame"});
-//    else if (msg.question == "Madame who?")
-//        port.postMessage({answer: "Madame... Bovary"});
-//});
-
-
-
-function getSelectionDimensions() {
-    var sel = document.selection, range;
-    var width = 0, height = 0;
-    if (sel) {
-        if (sel.type != "Control") {
-            range = sel.createRange();
-            width = range.boundingWidth;
-            height = range.boundingHeight;
-        }
-    } else if (window.getSelection) {
-        sel = window.getSelection();
-        if (sel.rangeCount) {
-            range = sel.getRangeAt(0).cloneRange();
-            if (range.getBoundingClientRect) {
-                var rect = range.getBoundingClientRect();
-                width = rect.right - rect.left;
-                height = rect.bottom - rect.top;
-            }
-        }
-    }
-    return { width: width , height: height };
 }
 
 
-
-
-var tooltipDiv = document.createElement("div");
-var style = 'left:'+positions.x+'px;bottom:'+positions.y+'px;';
-tooltipDiv.setAttribute('style', style);
-tooltipDiv.setAttribute('class', 'tooltip');
-//document.body.appendChild(tooltipDiv);
-tooltipDiv.innerText = translateWord;
-
-function getSelectionTopLeft() {
-    var sel = document.selection, range, rect;
-    var x = 0, y = 0;
-    if (sel) {
-        if (sel.type != "Control") {
-            range = sel.createRange();
-            range.collapse(true);
-            x = range.boundingLeft;
-            y = range.boundingTop;
-        }
-    } else if (window.getSelection) {
-        sel = window.getSelection();
-        if (sel.rangeCount) {
-            range = sel.getRangeAt(0).cloneRange();
-            if (range.getClientRects) {
-                range.collapse(true);
-                if (range.getClientRects().length>0){
-                    rect = range.getClientRects()[0];
-                    x = rect.left;
-                    y = rect.top;
-                }
-            }
-            // Fall back to inserting a temporary element
-            if (x == 0 && y == 0) {
-                var span = document.createElement("span");
-                if (span.getClientRects) {
-                    // Ensure span has dimensions and position by
-                    // adding a zero-width space character
-                    span.appendChild( document.createTextNode("\u200b") );
-                    range.insertNode(span);
-                    rect = span.getClientRects()[0];
-                    x = rect.left;
-                    y = rect.top;
-                    var spanParent = span.parentNode;
-                    spanParent.removeChild(span);
-
-                    // Glue any broken text nodes back together
-                    spanParent.normalize();
-                }
-            }
-        }
-    }
-    return { x: x, y: y };
-}
 
 
 
